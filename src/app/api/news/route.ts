@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       data: {
         NewsTitle,
         NewsContent,
-        Thumbnail: fileName,
+        Thumbnail: filePath,
 
       },
     });

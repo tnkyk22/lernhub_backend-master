@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import axios from "axios";
 import NewsCreateContentPage from "./news_content";
+import Image from "next/image";
 
 interface NewsItem {
   Id: number;
@@ -147,10 +148,12 @@ export default function NewsTable() {
             currentNews.map((news) => (
               <tr key={news.Id} className="text-center">
                 <td className="border border-gray-300 px-4 py-2">
-                  <img
-                    src={`/uploads/${news.Thumbnail}`}
+                  <Image
+                    src={news.Thumbnail}
                     alt={news.NewsTitle}
                     className="max-h-16 mx-auto"
+                    width={64}
+                    height={64}
                   />
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-left">

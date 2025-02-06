@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Image from "next/image";
 
 // Define interfaces
 interface Sheet {
@@ -177,12 +178,14 @@ export default function SheetTable() {
                     </a>
                   </td>
                   <td className="p-3 border border-gray-300">
-                    <img
+                    <Image
                       src={
                         sheet.Thumbnail
-                          ? `/uploads/${sheet.Thumbnail}`
+                          ? sheet.Thumbnail
                           : "/placeholder-image.png"
                       }
+                      width={64}
+                      height={64}
                       alt={`Thumbnail of ${sheet.Name}`}
                       className="w-16 h-16 object-cover rounded-md"
                     />

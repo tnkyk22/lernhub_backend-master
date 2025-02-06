@@ -16,7 +16,7 @@ export async function upload(file: File) {
     const blob = await put(fileName, file, { access: "public" });
     return {
       filePath: blob.url,
-      fileName,
+      fileName: blob.url,
     };
 
     //   return { filePath, fileName };
@@ -46,7 +46,7 @@ export async function UploadThumbnail(file: File) {
     const blob = await put(fileName, file, { access: "public" });
     return {
       filePath: blob.url,
-      fileName,
+      fileName: blob.url,
     };
 
     // return { filePath, fileName };

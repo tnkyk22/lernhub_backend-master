@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Image from "next/image";
 
 export default function NewsCreateContentModal({
   isOpened,
@@ -138,7 +139,9 @@ export default function NewsCreateContentModal({
                 className="block w-full text-sm text-gray-500"
               />
               {previewImage && (
-                <img
+                <Image
+                  width={200}
+                  height={200}
                   src={previewImage}
                   alt="Preview"
                   className="mt-2 max-h-40 rounded"
