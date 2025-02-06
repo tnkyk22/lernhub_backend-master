@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
     return new NextResponse(null, {
       status: 204, // Use 204 for preflight
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "https://lhcmru-website.vercel.app",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },
@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
   const response = NextResponse.next();
   response.headers.append(
     "Access-Control-Allow-Origin",
-    "*"
+    "https://lhcmru-website.vercel.app"
   );
   response.headers.append(
     "Access-Control-Allow-Methods",
