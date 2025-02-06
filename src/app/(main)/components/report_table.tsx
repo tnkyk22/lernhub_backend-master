@@ -128,7 +128,7 @@ export default function ReportSheetTable() {
             ) : (
               <tr>
                 <td colSpan={5} className="text-center text-gray-500 p-4">
-                  ไม่พบปัญหาที่ตรงกับ "{searchQuery}"
+                  ไม่พบปัญหาที่ตรงกับ &quot;{searchQuery}&quot;
                 </td>
               </tr>
             )}

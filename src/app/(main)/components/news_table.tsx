@@ -195,7 +195,7 @@ export default function NewsTable() {
           ) : (
             <tr>
               <td colSpan={4} className="text-center text-gray-500 p-4">
-                ไม่พบข่าวประชาสัมพันธ์ที่ตรงกับ "{searchQuery}"
+                ไม่พบข่าวประชาสัมพันธ์ที่ตรงกับ &quot;${searchQuery}&quot;
               </td>
             </tr>
           )}

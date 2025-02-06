@@ -202,7 +202,7 @@ export default function CourseNameTable() {
                         ) : (
                             <tr>
                                 <td colSpan={4} className="text-center text-gray-500 p-4">
-                                    ไม่พบชื่อวิชาที่ตรงกับ "{searchQuery}"
+                                    ไม่พบชื่อวิชาที่ตรงกับ &quot;{searchQuery}&quot;
                                 </td>
                             </tr>
                         )}

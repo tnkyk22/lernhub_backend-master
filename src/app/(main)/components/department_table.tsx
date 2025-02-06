@@ -210,7 +210,7 @@ export default function DepartmentTable() {
                         ) : (
                             <tr>
                                 <td colSpan={4} className="text-center text-gray-500 p-4">
-                                    ไม่พบสาขาที่ตรงกับ "{searchQuery}"
+                                    ไม่พบสาขาที่ตรงกับ &quot;{searchQuery}&quot;
                                 </td>
                             </tr>
                         )}

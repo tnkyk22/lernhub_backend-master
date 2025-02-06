@@ -169,7 +169,7 @@ export default function CourseTable() {
                             ) : (
                                 <tr>
                                     <td colSpan={3} className="text-center text-gray-500 p-4">
-                                        ไม่พบรหัสวิชาที่ตรงกับ "{searchQuery}"
+                                        ไม่พบรหัสวิชาที่ตรงกับ &quot;{searchQuery}&quot;
                                     </td>
                                 </tr>
                             )}

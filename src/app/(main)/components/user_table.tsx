@@ -154,7 +154,7 @@ export default function UserTable() {
                             ) : (
                                 <tr>
                                     <td colSpan={6} className="text-center text-gray-500 p-4">
-                                        ไม่พบผู้ใช้งานที่ตรงกับ "{searchQuery}"
+                                        ไม่พบผู้ใช้งานที่ตรงกับ &quot;{searchQuery}&quot;
                                     </td>
                                 </tr>
                             )}

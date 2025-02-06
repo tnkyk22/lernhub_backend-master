@@ -235,7 +235,7 @@ export default function SheetTable() {
                   colSpan={10}
                   className="p-3 border border-gray-300 text-center"
                 >
-                  ไม่พบโน้ตสรุปที่ตรงกับ "{searchQuery}"
+                  ไม่พบโน้ตสรุปที่ตรงกับ &quot;{searchQuery}&quot;
                 </td>
               </tr>
             )}

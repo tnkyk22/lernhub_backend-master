@@ -241,7 +241,7 @@ export default function FacultyTable() {
               ) : (
                 <tr>
                   <td colSpan={3} className="text-center text-gray-500 p-4">
-                    ไม่พบคณะที่ตรงกับ "{searchQuery}"
+                    ไม่พบคณะที่ตรงกับ &quot;{searchQuery}&quot;
                   </td>
                 </tr>
               )}
