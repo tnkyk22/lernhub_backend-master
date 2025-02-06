@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { UploadThumbnail } from "@/app/api/upload_handle/upload";
-import * as fs from "fs";
+// import * as fs from "fs";
+import { del } from "@vercel/blob";
 
 const prisma = new PrismaClient();
 
@@ -38,7 +39,8 @@ export async function PUT(
         },
       });
       if (findImg?.Thumbnail) {
-        fs.unlinkSync(`public/uploads/${findImg?.Thumbnail}`);
+        // fs.unlinkSync(`public/uploads/${findImg?.Thumbnail}`);
+        await del(findImg?.Thumbnail);
       }
       const { filePath, fileName } = await UploadThumbnail(newimg);
       const updatedNews = await prisma.news.update({
@@ -81,7 +83,8 @@ export async function DELETE(
       },
     });
     if (findImg?.Thumbnail) {
-      fs.unlinkSync(`public/uploads/${findImg?.Thumbnail}`);
+      // fs.unlinkSync(`public/uploads/${findImg?.Thumbnail}`);
+      await del(findImg?.Thumbnail);
     }
     const news = await prisma.news.delete({
       where: {
