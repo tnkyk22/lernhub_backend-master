@@ -1,0 +1,124 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admins {
+  Id        Int      @id @default(autoincrement())
+  Name      String
+  Email     String   @unique
+  Password  String
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+}
+
+model Users {
+  Id           Int         @id @default(autoincrement())
+  Email        String      @unique
+  UserName     String
+  Password     String
+  CreatedAt    DateTime    @default(now())
+  UpdatedAt    DateTime    @updatedAt
+  Sheet        Sheet[]
+  Ratings      Rating[]
+  Reports      Reports[]
+  Faculty      Faculty?    @relation(fields: [facultyId], references: [Id])
+  facultyId    Int?
+  Department   Department? @relation(fields: [departmentId], references: [Id])
+  departmentId Int?
+}
+
+model Faculty {
+  Id         Int          @id @default(autoincrement())
+  Name       String       @unique
+  CreatedAt  DateTime     @default(now())
+  UpdatedAt  DateTime     @updatedAt
+  Users      Users[]
+  Department Department[]
+}
+
+model Department {
+  Id        Int      @id @default(autoincrement())
+  Name      String   @unique
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+  Users     Users[]
+  Faculty   Faculty? @relation(fields: [facultyId], references: [Id])
+  facultyId Int?
+}
+
+model Course {
+  Id          Int           @id @default(autoincrement())
+  Course_Id   String        @unique
+  Sheet       Sheet[]
+  Course_name Course_name[]
+}
+
+model Course_name {
+  Id       Int     @id @default(autoincrement())
+  Name     String  @unique
+  Sheet    Sheet[]
+  Course   Course? @relation(fields: [courseId], references: [Id])
+  courseId Int?
+}
+
+model Sheet {
+  Id            Int          @id @default(autoincrement())
+  Name          String
+  Path          String
+  Thumbnail     String?      @default("https://placehold.co/600x400/png")
+  NoteType      NoteType
+  CreatedBy     Users        @relation(fields: [CreatedById], references: [Id])
+  CreatedById   Int
+  CreatedAt     DateTime     @default(now())
+  UpdatedAt     DateTime     @updatedAt
+  Ratings       Rating[]
+  Course        Course?      @relation(fields: [courseId], references: [Id])
+  courseId      Int?
+  Reports       Reports[]
+  Course_name   Course_name? @relation(fields: [course_nameId], references: [Id])
+  course_nameId Int?
+}
+
+model Rating {
+  Id      Int   @id @default(autoincrement())
+  Score   Int
+  User    Users @relation(fields: [userId], references: [Id])
+  Sheet   Sheet @relation(fields: [sheetId], references: [Id])
+  userId  Int
+  sheetId Int
+
+  @@unique([userId, sheetId])
+}
+
+model Reports {
+  Id         Int      @id @default(autoincrement())
+  Content    String
+  ReportDate DateTime @default(now())
+  User       Users    @relation(fields: [userId], references: [Id])
+  userId     Int
+  Sheet      Sheet?   @relation(fields: [sheetId], references: [Id], onDelete: Cascade)
+  sheetId    Int?
+}
+
+model News {
+  Id          Int      @id @default(autoincrement())
+  Thumbnail   String
+  NewsTitle   String
+  NewsContent String
+  CreatedAt   DateTime @default(now())
+  UpdatedAt   DateTime @updatedAt
+}
+
+enum NoteType {
+  Handout
+  Sheet
+  Note
+}
