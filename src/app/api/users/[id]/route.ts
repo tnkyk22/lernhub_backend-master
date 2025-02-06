@@ -53,7 +53,6 @@ export async function PUT(
       message: "อัปเดตข้อมูลผู้ใช้สำเร็จ",
       user: updatedUser,
     });
-
   } catch (error) {
     return NextResponse.json({
       error: error instanceof Error ? error.message : "Unknown error",
@@ -72,44 +71,33 @@ export async function DELETE(
       where: { Id: userId },
       include: {
         _count: {
-          select: { 
+          select: {
             Sheet: true,
-            Ratings: true,  // เพิ่มการเช็ค Ratings
+            Ratings: true, // เพิ่มการเช็ค Ratings
           },
         },
       },
     });
 
-    // Check if userWithSheets is not null and has associated sheets
-    if (userWithSheets && userWithSheets._count.Sheet > 0) {
-      return NextResponse.json(
-        {
-          error: "ไม่สามารถลบผู้ใช้ได้ เนื่องจากผู้ใช้นี้มีเอกสารที่เกี่ยวข้อง",
-        },
-        { status: 400 }
-      );
-    }
-
     // ลบข้อมูลที่เกี่ยวข้องทั้งหมดในลำดับที่ถูกต้อง
     await prisma.$transaction([
       // ลบ ratings ที่เกี่ยวข้อง
       prisma.rating.deleteMany({
-        where: { userId: userId }
+        where: { userId: userId },
       }),
-      
+
       prisma.reports.deleteMany({
-        where: { userId: userId }
+        where: { userId: userId },
       }),
       // ลบ user
       prisma.users.delete({
-        where: { Id: userId }
-      })
+        where: { Id: userId },
+      }),
     ]);
 
-    return NextResponse.json({ 
-      message: "ลบผู้ใช้เรียบร้อยแล้ว" 
+    return NextResponse.json({
+      message: "ลบผู้ใช้เรียบร้อยแล้ว",
     });
-
   } catch (error) {
     return NextResponse.json({
       error: error instanceof Error ? error.message : "Unknown error",

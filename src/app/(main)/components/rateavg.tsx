@@ -57,7 +57,7 @@ export default function RateAVGTable() {
     const calculateOverallAverage = (type: string): number => {
         const relevantSheets = filteredSheets.filter(sheet => sheet.NoteType === type);
         const totalAverage = relevantSheets.reduce((acc, sheet) => acc + calculateAverageRating(sheet.Ratings), 0);
-        return relevantSheets.length > 0 ? (totalAverage / relevantSheets.length).toFixed(2) : 0;
+        return relevantSheets.length > 0 ? +(totalAverage / relevantSheets.length).toFixed(2) : 0;
     };
 
     // การแบ่งหน้า

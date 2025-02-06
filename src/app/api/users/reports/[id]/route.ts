@@ -8,7 +8,7 @@ interface Report {
   UserId: number;
 }
 export async function GET(
-  req: NextRequest,
+  _: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
@@ -22,7 +22,7 @@ export async function GET(
     });
     return NextResponse.json(report);
   } catch (e) {
-    return { message: e };
+    return NextResponse.json({ message: e }, { status: 500 });
   }
 }
 
@@ -31,7 +31,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { Content, UserId }: Report = await req.json();
+    const { Content }: Report = await req.json();
     const report = await prisma.reports.update({
       where: {
         Id: parseInt(params.id),
@@ -42,7 +42,7 @@ export async function PUT(
     });
     return NextResponse.json(report);
   } catch (e) {
-    return { message: e };
+    return NextResponse.json({ message: e }, { status: 500 });
   }
 }
 
@@ -58,6 +58,6 @@ export async function DELETE(
     });
     return NextResponse.json(report);
   } catch (e) {
-    return { message: e };
+    return NextResponse.json({ message: e }, { status: 500 });
   }
 }
