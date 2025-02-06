@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
+import { headers } from "next/headers";
 
 const prisma = new PrismaClient();
 const secret = process.env.JWT_SECRET; // Make sure to set your JWT secret in environment variables
 
 export async function GET(req: NextRequest) {
   try {
-    const authHeader = req.headers.get("authorization");
+    const headersList = headers();
+    const authHeader = headersList.get("authorization");
     if (!authHeader) {
       return NextResponse.json(
         { message: "Authorization header missing" },
@@ -23,7 +25,10 @@ export async function GET(req: NextRequest) {
     let decoded;
     try {
       if (!secret) {
-        return NextResponse.json({ message: "JWT secret not set" }, { status: 500 });
+        return NextResponse.json(
+          { message: "JWT secret not set" },
+          { status: 500 }
+        );
       }
       decoded = jwt.verify(token, secret);
     } catch (error) {
@@ -31,7 +36,7 @@ export async function GET(req: NextRequest) {
     }
 
     console.log("Decoded token:", decoded);
-    
+
     const userId = (decoded as jwt.JwtPayload).userId;
     const user = await prisma.users.findUnique({
       where: { Id: userId },
